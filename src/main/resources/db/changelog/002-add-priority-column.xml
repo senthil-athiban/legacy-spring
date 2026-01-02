@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+      http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
+
+   <changeSet id="002-add-priority-column.xml" author="senthil">
+
+       <!-- Step 1: Add column (nullable) -->
+       <addColumn tableName="todo">
+           <column name="priority" type="int" />
+       </addColumn>
+
+        <!-- Step 2: Update existing priority col with 0 -->
+       <update tableName="todo">
+           <column name="priority" valueNumeric="0" />
+       </update>
+
+        <!-- Step 3: Make priority col as not null -->
+       <addNotNullConstraint tableName="todo" columnName="priority" columnDataType="init" />
+   </changeSet>
+
+</databaseChangeLog>
